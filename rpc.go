@@ -105,7 +105,7 @@ func netReq(req *http.Request) ([]byte, int, error) {
 
 	authUsername := os.Getenv("EUREKA_AUTH_USERNAME")
 	authPassword := os.Getenv("EUREKA_AUTH_PASSWORD")
-	if (authUsername != nil && authPassword != nil) {
+	if (authUsername != "" && authPassword != "") {
 		req.SetBasicAuth(authUsername, authPassword)
 	}
 
