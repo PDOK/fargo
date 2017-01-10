@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+	"os"
 )
 
 var HttpClient = &http.Client{
@@ -101,6 +102,13 @@ func netReqTyped(req *http.Request, isJson bool) ([]byte, int, error) {
 func netReq(req *http.Request) ([]byte, int, error) {
 	var resp *http.Response
 	var err error
+
+	authUsername := os.Getenv("EUREKA_AUTH_USERNAME")
+	authPassword := os.Getenv("EUREKA_AUTH_PASSWORD")
+	if (authUsername != nil && authPassword != nil) {
+		req.SetBasicAuth(authUsername, authPassword)
+	}
+
 	for i := 0; i < 3; i++ {
 		resp, err = HttpClient.Do(req)
 		if nerr, ok := err.(net.Error); ok && nerr.Temporary() {

@@ -42,7 +42,7 @@ Q: Does it cache?
 
 A: No, it does not support caching records.
 
-Q: Can I integrate this into my Go app and have it manage hearbeats to Eureka?
+Q: Can I integrate this into my Go app and have it manage heartbeats to Eureka?
 
 A: Glad you asked, of course you can. Just grab an application (for this example,
 "TESTAPP")
@@ -63,6 +63,14 @@ for {
 // You'll see all the instances at first, and within a minute or two all the
 // ones that aren't heartbeating will disappear from the list. Note that after
 // calling `UpdateApp` there's no need to manually update
+```
+
+Q: Eureka requires a username and password (Basic Authentication), can I use it?
+
+A: Yes, set the environment variables 'EUREKA_AUTH_USERNAME' and 'EUREKA_AUTH_PASSWORD'.
+```bash
+# Example with docker run
+docker run -d -p 49000:8080 -e "EUREKA_AUTH_USERNAME=user" -e "EUREKA_AUTH_PASSWORD=let_me_in" --name eureka2 hudloss/eureka:1.3.1
 ```
 
 # TODO
